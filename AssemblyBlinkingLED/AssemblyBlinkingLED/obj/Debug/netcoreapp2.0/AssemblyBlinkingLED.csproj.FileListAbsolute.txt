@@ -1,0 +1,11 @@
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.deps.json
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.runtimeconfig.json
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.runtimeconfig.dev.json
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.dll
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.pdb
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.csprojAssemblyReference.cache
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.csproj.CoreCompileInputs.cache
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.AssemblyInfoInputs.cache
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.AssemblyInfo.cs
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.dll
+C:\Users\WaffleDefender\Documents\ProgrammingLanguages\Code\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.pdb

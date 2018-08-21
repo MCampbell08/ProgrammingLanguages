@@ -670,11 +670,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\TwelthQuartCode\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\AssemblyBlinkingLED.csproj",
+      "projectUniqueName": "C:\\Users\\WaffleDefender\\Documents\\ProgrammingLanguages\\Code\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\AssemblyBlinkingLED.csproj",
       "projectName": "AssemblyBlinkingLED",
-      "projectPath": "C:\\TwelthQuartCode\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\AssemblyBlinkingLED.csproj",
+      "projectPath": "C:\\Users\\WaffleDefender\\Documents\\ProgrammingLanguages\\Code\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\AssemblyBlinkingLED.csproj",
       "packagesPath": "C:\\Users\\WaffleDefender\\.nuget\\packages\\",
-      "outputPath": "C:\\TwelthQuartCode\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\obj\\",
+      "outputPath": "C:\\Users\\WaffleDefender\\Documents\\ProgrammingLanguages\\Code\\ProgrammingLanguages\\AssemblyBlinkingLED\\AssemblyBlinkingLED\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
