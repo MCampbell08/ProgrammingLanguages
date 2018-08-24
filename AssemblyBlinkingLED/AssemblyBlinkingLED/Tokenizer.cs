@@ -12,7 +12,7 @@ namespace AssemblyBlinkingLED
             string[] commandCode = input.Split(' ');
 
             if (IsValidInstruction(commandCode[0])){
-                ConvertToBinary(commandCode);
+                ConvertToBinary(commandCode, writer);
             }
         }
 
@@ -29,7 +29,7 @@ namespace AssemblyBlinkingLED
             return result;
         }
 
-        private void ConvertToBinary(string[] commandCode)
+        private void ConvertToBinary(string[] commandCode, StreamWriter writer)
         {
             string[] commandCodeBinary = new string[32];
             switch (commandCode[0])
@@ -41,23 +41,137 @@ namespace AssemblyBlinkingLED
                     commandCodeBinary = ConvertMOVTypes(commandCode[0], commandCode[1], commandCode[2]);
                     break;
                 case "ADD":
+                    commandCodeBinary = ConvertDataProcessing(commandCode[0], commandCode[1], commandCode[2], commandCode[3]);
                     break;
                 case "OR":
+                    commandCodeBinary = ConvertDataProcessing(commandCode[0], commandCode[1], commandCode[2], commandCode[3]);
                     break;
                 case "SUB":
+                    commandCodeBinary = ConvertDataProcessing(commandCode[0], commandCode[1], commandCode[2], commandCode[3]);
                     break;
                 case "CMP":
+                    commandCodeBinary = ConvertDataProcessing(commandCode[0], commandCode[1], commandCode[1], commandCode[2]);
                     break;
                 case "LDR":
+                    commandCodeBinary = ConvertSingleDataTransfer(commandCode[0], commandCode[1], commandCode[2]);
                     break;
                 case "STR":
+                    commandCodeBinary = ConvertSingleDataTransfer(commandCode[0], commandCode[1], commandCode[2]);
                     break;
                 case "B":
+                    commandCodeBinary = ConvertBranch(commandCode[0], commandCode[1]);
                     break;
                 case "BNE":
+                    commandCodeBinary = ConvertBranch(commandCode[0], commandCode[1]);
                     break;
             }
-            Console.WriteLine(commandCodeBinary);
+            int counter = 0;
+            foreach (string s in commandCodeBinary)
+            {
+                if (counter == 4)
+                {
+                    Console.Write(" ");
+                    counter = 0;
+                }
+                Console.Write(s);
+                counter++;
+            }
+            Console.WriteLine();
+
+            StringBuilder completeBuilder = new StringBuilder();
+            StringBuilder setBuilder = new StringBuilder();
+
+            for (int i = 0; i < 32; i++)
+            {
+                setBuilder.Append(commandCodeBinary[i]);
+
+                if (i == 7 || i == 15 || i == 23 || i == 31)
+                {
+                    string newForm = setBuilder.ToString() + completeBuilder.ToString();
+
+                    completeBuilder.Clear();
+                    setBuilder.Clear();
+                    completeBuilder.Append(newForm);
+                    newForm = "";
+                }
+            }
+
+            Console.WriteLine(completeBuilder);
+            writer.WriteLine(completeBuilder.ToString());
+        }
+
+        private string[] ConvertBranch(string instruction, string immediateVal)
+        {
+            string[] returnedBinaryString = new string[32];
+
+            if (instruction == "B")
+                returnedBinaryString = AddNoFlagConditional(returnedBinaryString);
+            else
+                returnedBinaryString = AddFlagConditional(returnedBinaryString);
+
+            returnedBinaryString[4] = "1";
+            returnedBinaryString[5] = "0";
+            returnedBinaryString[6] = "1";
+            returnedBinaryString[7] = "0";
+
+            string immediateValBin = Convert.ToString(Convert.ToInt32(immediateVal.Split("x")[1].ToString(), 16), 2).PadLeft(24, '0');
+
+            for (int i = 8, j = 0; i < 32 && j < 24; i++, j++)
+            {
+                returnedBinaryString[i] = immediateValBin[j].ToString();
+            }
+
+            return returnedBinaryString;
+        }
+
+        private string[] ConvertSingleDataTransfer(string instruction, string destinationReg, string baseReg)
+        {
+            string[] returnedBinaryString = AddNoFlagConditional(new string[32]);
+
+            returnedBinaryString = AlterSingleDataTransferProps(returnedBinaryString, instruction);
+
+            string baseRegBin = Convert.ToString(Convert.ToInt32(baseReg[1].ToString(), 16), 2).PadLeft(4, '0');
+            string destinationRegBin = Convert.ToString(Convert.ToInt32(destinationReg[1].ToString(), 16), 2).PadLeft(4, '0');
+            
+            for (int i = 12, j = 0; i < 16 && j < 4; i++, j++)
+            {
+                returnedBinaryString[i] = baseRegBin[j].ToString();
+            }
+
+            for (int i = 16, j = 0; i < 20 && j < 4; i++, j++)
+            {
+                returnedBinaryString[i] = destinationRegBin[j].ToString();
+            }
+
+            for (int i = 20; i < 32; i++)
+            {
+                returnedBinaryString[i] = "0";
+            }
+
+            return returnedBinaryString;
+        }
+
+        private string[] ConvertDataProcessing(string instruction, string destinationReg, string operandOne, string operandTwo)
+        {
+            string[] returnedBinaryString = AddNoFlagConditional(new string[32]);
+
+            returnedBinaryString = AlterImmediateOperand(returnedBinaryString, operandTwo);
+            returnedBinaryString = AlterOperationCode(returnedBinaryString, instruction);
+
+            string operandOneBin = Convert.ToString(Convert.ToInt32(operandOne[1].ToString(), 16), 2).PadLeft(4, '0');
+            string destinationRegBin = Convert.ToString(Convert.ToInt32(destinationReg[1].ToString(), 16), 2).PadLeft(4, '0');
+            
+            for (int i = 12, j = 0; i < 16 && j < 4; i++, j++)
+            {
+                returnedBinaryString[i] = operandOneBin[j].ToString();
+            }
+
+            for (int i = 16, j = 0; i < 20 && j < 4; i++, j++)
+            {
+                returnedBinaryString[i] = destinationRegBin[j].ToString();
+            }
+
+            return returnedBinaryString;
         }
 
         private string[] ConvertMOVTypes(string instruction, string destinationReg, string immediateValue)
@@ -84,49 +198,165 @@ namespace AssemblyBlinkingLED
                 returnedBinaryString[11] = "0";
             }
 
-            string destinationRegBin = Convert.ToString(Convert.ToInt32(destinationReg[1].ToString(), 16), 2);
+            string destinationRegBin = Convert.ToString(Convert.ToInt32(destinationReg[1].ToString(), 16), 2).PadLeft(4, '0');
             
-            returnedBinaryString[16] = destinationRegBin[0].ToString();
-            returnedBinaryString[17] = destinationRegBin[1].ToString();
-            returnedBinaryString[18] = destinationRegBin[2].ToString();
-            returnedBinaryString[19] = destinationRegBin[3].ToString();
+            for (int i = 16, j = 0; i < 20 && j < 4; i++, j++)
+            {
+                returnedBinaryString[i] = destinationRegBin[j].ToString();
+            }
 
             returnedBinaryString = AddImmediateValue(returnedBinaryString, immediateValue);
 
             return returnedBinaryString;
             
         }
+
         private string[] AddNoFlagConditional(string[] binaryString)
         {
             binaryString[0] = "1";
             binaryString[1] = "1";
             binaryString[2] = "1";
             binaryString[3] = "0";
+
+            return binaryString;
+        }
+
+        private string[] AddFlagConditional(string[] binaryString)
+        {
+            binaryString[0] = "0";
+            binaryString[1] = "0";
+            binaryString[2] = "0";
+            binaryString[3] = "1";
+
             return binaryString;
         }
 
         private string[] AddImmediateValue(string[] binaryString, string immediateValue)
         {
-            string binary = Convert.ToString(Convert.ToInt32(immediateValue, 16), 2);
+            string binary = immediateValue.Contains("x") ? Convert.ToString(int.Parse(immediateValue.Split('x')[1].ToString(), System.Globalization.NumberStyles.HexNumber), 2).PadLeft(16, '0') : Convert.ToString(Convert.ToInt32(immediateValue), 2).PadLeft(16, '0');
+                        
+            for (int i = 12, j = 0; i < 16 && j < 4; i++, j++)
+            {
+                binaryString[i] = binary[j].ToString();
+            }
+            
+            for (int i = 20, j = 4; i < 32 && j < 16; i++, j++)
+            {
+                binaryString[i] = binary[j].ToString();
+            }
 
-            binaryString[12] = binary[0].ToString();
-            binaryString[13] = binary[1].ToString();
-            binaryString[14] = binary[2].ToString();
-            binaryString[15] = binary[3].ToString();
+            return binaryString;
+        }
 
+        private string[] AlterImmediateOperand(string[] binaryString, string operandTwo)
+        {
+            string binary = "";
 
-            binaryString[20] = binary[4].ToString();
-            binaryString[21] = binary[5].ToString();
-            binaryString[22] = binary[6].ToString();
-            binaryString[23] = binary[7].ToString();
-            binaryString[24] = binary[8].ToString();
-            binaryString[25] = binary[9].ToString();
-            binaryString[26] = binary[10].ToString();
-            binaryString[27] = binary[11].ToString();
-            binaryString[28] = binary[12].ToString();
-            binaryString[29] = binary[13].ToString();
-            binaryString[30] = binary[14].ToString();
-            binaryString[31] = binary[15].ToString();
+            if (!operandTwo.Contains("r"))
+            {
+                binary = Convert.ToString(int.Parse(operandTwo.Split('x')[1].ToString(), System.Globalization.NumberStyles.HexNumber), 2).PadLeft(8, '0');
+
+                binaryString[4] = "0";
+                binaryString[5] = "0";
+                binaryString[6] = "1";
+
+                binaryString[20] = "0";
+                binaryString[21] = "0";
+                binaryString[22] = "0";
+                binaryString[23] = "0";
+
+                for (int i = 24, j = 0; i < 32 && j < 8; i++, j++)
+                {
+                    binaryString[i] = binary[j].ToString();
+                }
+            }
+            else
+            {
+                binary = Convert.ToString(int.Parse(operandTwo.Split('r')[1].ToString(), System.Globalization.NumberStyles.HexNumber), 2).PadLeft(4, '0');
+
+                binaryString[4] = "0";
+                binaryString[5] = "0";
+                binaryString[6] = "0";
+
+                binaryString[20] = "0";
+                binaryString[21] = "0";
+                binaryString[22] = "0";
+                binaryString[23] = "0";
+                binaryString[24] = "0";
+                binaryString[25] = "0";
+                binaryString[26] = "0";
+                binaryString[27] = "0";
+
+                for (int i = 28, j = 0; i < 32 && j < 4; i++, j++)
+                {
+                    binaryString[i] = binary[j].ToString();
+                }
+            }
+            return binaryString;
+        }
+
+        private string[] AlterOperationCode(string[] binaryString, string instruction)
+        {
+            switch (instruction)
+            {
+                case "ADD":
+                    binaryString[7]  = "0";
+                    binaryString[8]  = "1";
+                    binaryString[9]  = "0";
+                    binaryString[10] = "0";
+
+                    binaryString = AlterSetConditionCodes(binaryString, false);
+                    break;
+                case "SUB":
+                    binaryString[7]  = "0";
+                    binaryString[8]  = "0";
+                    binaryString[9]  = "1";
+                    binaryString[10] = "0";
+
+                    binaryString = AlterSetConditionCodes(binaryString, false);
+                    break;
+                case "OR":
+                    binaryString[7]  = "1";
+                    binaryString[8]  = "1";
+                    binaryString[9]  = "0";
+                    binaryString[10] = "0";
+
+                    binaryString = AlterSetConditionCodes(binaryString, false);
+                    break;
+                case "CMP":
+                    binaryString[7]  = "1";
+                    binaryString[8]  = "0";
+                    binaryString[9]  = "1";
+                    binaryString[10] = "0";
+
+                    binaryString = AlterSetConditionCodes(binaryString, true);
+                    break;
+            }
+
+            return binaryString;
+        }
+
+        private string[] AlterSetConditionCodes(string[] binaryString, bool setCode)
+        {
+            binaryString[11] = (setCode) ? "1" : "0";
+
+            return binaryString;
+        }
+
+        private string[] AlterSingleDataTransferProps(string[] binaryString, string instruction)
+        {
+            binaryString[4] = "0";
+            binaryString[5] = "1";
+            binaryString[6] = "0";
+            binaryString[7] = "0";
+            binaryString[8] = "1";
+            binaryString[9] = "0";
+            binaryString[10] = "0";
+
+            if (instruction == "STR")
+                binaryString[11] = "0";
+            else
+                binaryString[11] = "1";
 
             return binaryString;
         }
