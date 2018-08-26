@@ -1,19 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 
 namespace AssemblyBlinkingLED
 {
     public class Tokenizer
     {
-        public void Parse(string input, StreamWriter writer)
+        public string Parse(string input)
         {
             string[] commandCode = input.Split(' ');
 
             if (IsValidInstruction(commandCode[0])){
-                ConvertToBinary(commandCode, writer);
+                return ConvertToBinary(commandCode);
             }
+            return null;
         }
 
         private bool IsValidInstruction(string instruction)
@@ -29,7 +31,7 @@ namespace AssemblyBlinkingLED
             return result;
         }
 
-        private void ConvertToBinary(string[] commandCode, StreamWriter writer)
+        private string ConvertToBinary(string[] commandCode)
         {
             string[] commandCodeBinary = new string[32];
             switch (commandCode[0])
@@ -65,18 +67,6 @@ namespace AssemblyBlinkingLED
                     commandCodeBinary = ConvertBranch(commandCode[0], commandCode[1]);
                     break;
             }
-            int counter = 0;
-            foreach (string s in commandCodeBinary)
-            {
-                if (counter == 4)
-                {
-                    Console.Write(" ");
-                    counter = 0;
-                }
-                Console.Write(s);
-                counter++;
-            }
-            Console.WriteLine();
 
             StringBuilder completeBuilder = new StringBuilder();
             StringBuilder setBuilder = new StringBuilder();
@@ -96,8 +86,7 @@ namespace AssemblyBlinkingLED
                 }
             }
 
-            Console.WriteLine(completeBuilder);
-            writer.WriteLine(completeBuilder.ToString());
+            return completeBuilder.ToString();
         }
 
         private string[] ConvertBranch(string instruction, string immediateVal)

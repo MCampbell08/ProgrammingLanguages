@@ -1,5 +1,6 @@
 ﻿using System;
 using System.IO;
+using System.Linq;
 
 namespace AssemblyBlinkingLED
 {
@@ -11,13 +12,22 @@ namespace AssemblyBlinkingLED
             string inputPath = "C:\\Users\\waffl\\Documents\\SchoolCode\\ProgrammingLanguages\\inputCode.txt";
             string outputPath = "C:\\Users\\waffl\\Documents\\SchoolCode\\ProgrammingLanguages\\kernel7.img";
             string[] stream = File.ReadAllLines(inputPath);
-            StreamWriter writer = new StreamWriter(outputPath, false);
             Tokenizer tokenizer = new Tokenizer();
+            string completeBinaryString = "";
 
             foreach (string s in stream)
             {
-                tokenizer.Parse(s, writer);
-            }            
+                completeBinaryString += tokenizer.Parse(s);
+            }
+            
+            var byteArray = Enumerable.Range(0, int.MaxValue / 8)
+                .Select(x => x * 8)
+                .TakeWhile(x => x < completeBinaryString.ToString().Length)
+                .Select(x => completeBinaryString.ToString().Substring(x, 8))
+                .Select(x => Convert.ToByte(x, 2))
+                .ToArray();
+
+            File.WriteAllBytes(outputPath, byteArray);
         }
     }
 }
