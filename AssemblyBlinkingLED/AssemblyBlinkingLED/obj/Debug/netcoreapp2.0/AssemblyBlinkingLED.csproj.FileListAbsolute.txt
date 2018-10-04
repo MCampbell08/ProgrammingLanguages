@@ -20,3 +20,14 @@ C:\Users\waffl\Documents\SchoolCode\ProgrammingLanguages\AssemblyBlinkingLED\Ass
 C:\Users\waffl\Documents\SchoolCode\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.AssemblyInfo.cs
 C:\Users\waffl\Documents\SchoolCode\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.dll
 C:\Users\waffl\Documents\SchoolCode\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.pdb
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.deps.json
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.runtimeconfig.json
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.runtimeconfig.dev.json
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.dll
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\bin\Debug\netcoreapp2.0\AssemblyBlinkingLED.pdb
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.csprojAssemblyReference.cache
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.csproj.CoreCompileInputs.cache
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.AssemblyInfoInputs.cache
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.AssemblyInfo.cs
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.dll
+C:\TwelthQuartCode\ProgrammingLanguages\ProgrammingLanguages\AssemblyBlinkingLED\AssemblyBlinkingLED\obj\Debug\netcoreapp2.0\AssemblyBlinkingLED.pdb

@@ -5,11 +5,6 @@ VisualStudioVersion = 15.0.27004.2006
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssemblyBlinkingLED", "AssemblyBlinkingLED\AssemblyBlinkingLED.csproj", "{2AD4B2BB-F3CF-4C49-BF50-2BEC4B6113E7}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8EF2DC09-47AF-4A02-9F66-C21B703E6A8A}"
-	ProjectSection(SolutionItems) = preProject
-		..\kernel7.img = ..\kernel7.img
-	EndProjectSection
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
